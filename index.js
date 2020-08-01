@@ -3,19 +3,19 @@ class Account {
   constructor(username) {
     this.username = username;
     // no money in new account, yet
-    this.transactions = [];
+    this._transactions = [];
   }
 
   get balance() {
     let balance = 0;
-    for (let event of this.transactions) {
+    for (let event of this._transactions) {
       balance += event.value;
     }
     return balance;
   }
 
   addTransaction(transaction) {
-    this.transactions.push(transaction);
+    this._transactions.push(transaction);
   }
 }
 
@@ -28,7 +28,6 @@ class Transaction { // I am a SUPER class
 
   commit() {
     this.time = new Date();
-    this.account._balance += this.value;
     this.account.addTransaction(this);
   }
 }
@@ -71,4 +70,5 @@ t3.commit();
 console.log('Transaction 3:', t3);
 
 console.log('Ending Balance:', myAccount.balance);
+console.log(myAccount._transactions);
 
